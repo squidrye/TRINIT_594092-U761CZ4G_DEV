@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
-class LandingScreen extends StatelessWidget {
+class LandingScreen extends StatefulWidget {
   static const route = "/LandingPage";
   const LandingScreen({Key? key}) : super(key: key);
 
+  @override
+  State<LandingScreen> createState() => _LandingScreenState();
+}
+
+class _LandingScreenState extends State<LandingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,8 +19,9 @@ class LandingScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: [
               Container(
+                height: 200,
                 width: double.infinity,
-                alignment: Alignment.centerLeft,
+                alignment: Alignment.center,
                 child: Image.asset(
                   "assets/landing_screen/landing_page.png",
                   fit: BoxFit.contain,
@@ -71,21 +77,9 @@ class LandingScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Align(
-                          alignment: Alignment.bottomRight,
-                          child: XButton(
-                            text: ("Skip"),
-                            alter: false,
-                            onPressed: () {
-                              // Navigator.of(context).pushReplacementNamed(DashBoard.route);
-                            },
-                            width: 75,
-                            height: 20,
-                          ),
-                        ),
-                      ),
+                      SizedBox(
+                        height: 30,
+                      )
                     ],
                   ),
                 ),
