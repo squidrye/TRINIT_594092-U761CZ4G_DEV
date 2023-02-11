@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:we_care/presentation/widget/CommonWidgets.dart';
+import 'package:we_care/service/firebase_service.dart';
 
 import 'LoginScreen.dart';
 
@@ -7,6 +9,13 @@ class NGORegisterScreen extends StatefulWidget {
   static const route = "/NGORegisterScreen";
   NGORegisterScreen({Key? key}) : super(key: key);
 
+  TextEditingController _name = TextEditingController();
+  TextEditingController _email = TextEditingController();
+  TextEditingController _password = TextEditingController();
+  TextEditingController _confirm = TextEditingController();
+  TextEditingController _cause = TextEditingController();
+  TextEditingController _vision = TextEditingController();
+  TextEditingController _impact = TextEditingController();
   @override
   State<NGORegisterScreen> createState() => _NGORegisterScreenState();
 }
@@ -81,7 +90,8 @@ class _NGORegisterScreenState extends State<NGORegisterScreen> {
                       alter: false,
                       width: double.infinity,
                       height: 50,
-                      onPressed: () {
+                      onPressed: () async{
+                        await signUp(widget._email.text, widget._password.text);
                         Navigator.of(context).pushReplacementNamed(NGORegisterScreen.route);
                       },
                     ),
@@ -113,10 +123,10 @@ class _NGORegisterScreenState extends State<NGORegisterScreen> {
         state: _currentStep > 0 ? StepState.complete : StepState.indexed,
         content: Column(
           children: [
-            XField(value: "Name"),
-            XField(value: "Email"),
-            XField(value: "Password"),
-            XField(value: "Confirm Password"),
+            XField(value: "Name",controller: widget._name),
+            XField(value: "Email",controller: widget._email),
+            XField(value: "Password",controller: widget._password),
+            XField(value: "Confirm Password",controller: widget._confirm),
           ],
         ),
         title: XSubTitle(value: "Enter Basic Details"),
@@ -126,6 +136,7 @@ class _NGORegisterScreenState extends State<NGORegisterScreen> {
         state: _currentStep > 1 ? StepState.complete : StepState.indexed,
         title: XSubTitle(value: "Describe your cause"),
         content: XTextArea(
+          controller: widget._cause,
           value: "Describe a bit about your NGO",
         ),
       ),
@@ -134,6 +145,7 @@ class _NGORegisterScreenState extends State<NGORegisterScreen> {
         state: _currentStep > 2 ? StepState.complete : StepState.indexed,
         title: XSubTitle(value: "Vision"),
         content: XTextArea(
+          controller: widget._vision,
           value: "Describe to viewers and potential funders your vision and how you are going to fulfill it",
         ),
       ),
@@ -142,6 +154,7 @@ class _NGORegisterScreenState extends State<NGORegisterScreen> {
         state: _currentStep > 3 ? StepState.complete : StepState.indexed,
         title: XSubTitle(value: "Impact of NGO"),
         content: XTextArea(
+          controller: widget._impact,
           value: "Describe impact of your NGO",
         ),
       ),

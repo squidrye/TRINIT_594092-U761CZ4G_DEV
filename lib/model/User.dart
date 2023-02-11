@@ -16,6 +16,19 @@ class NormalUser extends User {
     required String name,
     required String email,
   }) : super(name: name, email: email);
+
+  NormalUser fromMap(Map<String, dynamic> json) {
+    return NormalUser(
+      name: json["name"],
+      email: json["email"],
+      donatedTo: json["donatedTo"],
+      categories: json["categories"],
+    );
+  }
+
+  Map<String, dynamic> toMap(NormalUser user) {
+    return {"name": user.name, "email": user.email, "donatedTo": user.donatedTo, "categories": user.categories};
+  }
 }
 
 class NGO extends User {
@@ -30,4 +43,18 @@ class NGO extends User {
     required String name,
     required String email,
   }) : super(name: name, email: email);
+
+  NGO fromMap(Map<String, dynamic> json) {
+    return NGO(
+      name: json["name"],
+      email: json["email"],
+      cause: json["donatedTo"],
+      impact: json["categories"],
+      vision: json["categories"]
+    );
+  }
+
+  Map<String, dynamic> toMap(NormalUser user) {
+    return {"name": user.name, "email": user.email, "donatedTo": user.donatedTo, "categories": user.categories};
+  }
 }
