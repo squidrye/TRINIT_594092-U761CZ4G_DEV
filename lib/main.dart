@@ -9,7 +9,7 @@ import 'package:we_care/presentation/SplashScreen.dart';
 void main() {
   runApp(
     MaterialApp(
-      home:  DashBoard(),
+      home:  UserRegisterScreen(),
       routes: {
         SplashScreen.route: (context) => const SplashScreen(),
         LandingScreen.route: (context) => const LandingScreen(),

@@ -31,13 +31,16 @@ class DashBoard extends StatelessWidget {
             color: Theme.of(context).primaryColorLight,
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [buildStatsCards(), buildStatsCards(), buildStatsCards()],
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [buildStatsCards(), buildStatsCards(), buildStatsCards()],
+                ),
               ),
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(top: 150),
+            margin: const EdgeInsets.only(top: 170),
             height: double.infinity,
             width: double.infinity,
             decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(40)),
@@ -67,11 +70,7 @@ class DashBoard extends StatelessWidget {
                         child: Text(items),
                       );
                     }).toList(),
-                    onChanged: (String? newValue) {
-                      //       setState(() {
-                      //   dropdownvalue = newValue!;
-                      // });
-                    },
+                    onChanged: (String? newValue) {},
                   ),
                 ),
                 const SizedBox(
@@ -112,7 +111,7 @@ class DashBoard extends StatelessWidget {
       alignment: Alignment.topLeft,
       child: Container(
         width: 150,
-        height: 200,
+        height: 170,
         child: Card(
           child: Column(
             children: [
