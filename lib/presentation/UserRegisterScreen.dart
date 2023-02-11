@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:we_care/presentation/LoginScreen.dart';
 import 'package:we_care/presentation/widget/CommonWidgets.dart';
+import 'package:we_care/service/firebase_service.dart';
 
 class UserRegisterScreen extends StatefulWidget {
   static const route = "/UserRegisterScreen";
+
+  TextEditingController _name = TextEditingController();
+  TextEditingController _email = TextEditingController();
+  TextEditingController _password = TextEditingController();
+  TextEditingController _confirm = TextEditingController();
+
   UserRegisterScreen({Key? key}) : super(key: key);
 
   @override
@@ -39,7 +46,7 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
               child: Column(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top:20,bottom: 10),
+                    margin: EdgeInsets.only(top: 20, bottom: 10),
                     child: XTitle(value: "Create New Account"),
                   ),
                   Stepper(
@@ -76,7 +83,9 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
                           ),
                           CircleAvatar(
                             child: IconButton(
-                              icon:Icon(Icons.arrow_upward,),
+                              icon: Icon(
+                                Icons.arrow_upward,
+                              ),
                               onPressed: details.onStepCancel,
                             ),
                           ),
@@ -93,7 +102,8 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
                       alter: false,
                       width: double.infinity,
                       height: 50,
-                      onPressed: () {
+                      onPressed: () async {
+                        await signUp(widget._email.text, widget._password.text);
                         Navigator.of(context).pushReplacementNamed(UserRegisterScreen.route);
                       },
                     ),
@@ -125,10 +135,10 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
         state: _currentStep > 0 ? StepState.complete : StepState.indexed,
         content: Column(
           children: [
-            XField(value: "Name"),
-            XField(value: "Email"),
-            XField(value: "Password"),
-            XField(value: "Confirm Password"),
+            XField(value: "Name", controller: widget._name),
+            XField(value: "Email", controller: widget._email),
+            XField(value: "Password", controller: widget._password),
+            XField(value: "Confirm Password", controller: widget._confirm),
           ],
         ),
         title: XSubTitle(value: "Enter Basic Details"),

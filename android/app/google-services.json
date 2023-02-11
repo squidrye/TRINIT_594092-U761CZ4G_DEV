@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "894058234767",
+    "project_id": "ngo-application-a9e27",
+    "storage_bucket": "ngo-application-a9e27.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:894058234767:android:7e6ff99e5a976646fc01fa",
+        "android_client_info": {
+          "package_name": "com.example.we_care"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "894058234767-r4jt97hu85le068rf3g4jbap17ei2jpc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATrvh9m95npz9BIrPB3VNzwZzvQlYPdDg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "894058234767-r4jt97hu85le068rf3g4jbap17ei2jpc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
