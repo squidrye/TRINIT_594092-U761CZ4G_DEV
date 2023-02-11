@@ -17,7 +17,8 @@ void main() {
         NGORegisterScreen.route: (context) => NGORegisterScreen(),
       },
       theme: ThemeData(
-        primaryColor: Color(0xFF486C7C),
+
+        useMaterial3: true,
         inputDecorationTheme: InputDecorationTheme(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(9)),
             fillColor: Color(0xFFD9D9D9),

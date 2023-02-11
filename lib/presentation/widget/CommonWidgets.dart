@@ -110,7 +110,7 @@ class XButton extends StatelessWidget {
               Radius.circular(12),
             ),
           ),
-          foregroundColor: alter ? Theme.of(context).primaryColor : Color(0xFFF2DA0E),
+          foregroundColor: alter ? Theme.of(context).primaryColor : Colors.white,
           backgroundColor: alter ? Colors.white : Theme.of(context).primaryColor,
         ),
         child: Text(text),

@@ -51,16 +51,22 @@ class _NGORegisterScreenState extends State<NGORegisterScreen> {
                       return Row(
                         children: [
                           if (details.currentStep != getSteps().length - 1)
-                            ElevatedButton(
-                              onPressed: details.onStepContinue,
-                              child: Text('Continue'),
+                            CircleAvatar(
+                              child: IconButton(
+                                icon: Icon(Icons.arrow_downward),
+                                onPressed: details.onStepContinue,
+                              ),
                             ),
                           const SizedBox(
                             width: 20,
                           ),
-                          ElevatedButton(
-                            onPressed: details.onStepCancel,
-                            child: Text('Back'),
+                          CircleAvatar(
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.arrow_upward,
+                              ),
+                              onPressed: details.onStepCancel,
+                            ),
                           ),
                         ],
                       );

@@ -38,7 +38,10 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  XTitle(value: "Create New Account"),
+                  Container(
+                    margin: EdgeInsets.only(top:20,bottom: 10),
+                    child: XTitle(value: "Create New Account"),
+                  ),
                   Stepper(
                     physics: NeverScrollableScrollPhysics(),
                     currentStep: _currentStep,
@@ -62,16 +65,20 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
                       return Row(
                         children: [
                           if (details.currentStep != getSteps().length - 1)
-                            ElevatedButton(
-                              onPressed: details.onStepContinue,
-                              child: Text('Continue'),
+                            CircleAvatar(
+                              child: IconButton(
+                                icon: Icon(Icons.arrow_downward),
+                                onPressed: details.onStepContinue,
+                              ),
                             ),
                           const SizedBox(
                             width: 20,
                           ),
-                          ElevatedButton(
-                            onPressed: details.onStepCancel,
-                            child: Text('Back'),
+                          CircleAvatar(
+                            child: IconButton(
+                              icon:Icon(Icons.arrow_upward,),
+                              onPressed: details.onStepCancel,
+                            ),
                           ),
                         ],
                       );

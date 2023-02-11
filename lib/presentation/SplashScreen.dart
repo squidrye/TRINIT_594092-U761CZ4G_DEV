@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF486C7C),
+      backgroundColor: Colors.black,
       body: Image.asset(
         "assets/splash_screen/we_care.gif",
         gaplessPlayback: true,
