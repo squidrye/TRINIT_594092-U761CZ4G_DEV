@@ -14,6 +14,7 @@ class _DashBoardState extends State<DashBoard> {
    String dropDownValue = 'All Categories';
 
   // List of items in our dropdown menu
+  
   final items = [
     'All Categories',
     'Nature',
@@ -135,7 +136,7 @@ class _DashBoardState extends State<DashBoard> {
                                 width: 50,
                                 height: 50,
                                 text: "LOAD MORE !!"),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             )
                           ]),
