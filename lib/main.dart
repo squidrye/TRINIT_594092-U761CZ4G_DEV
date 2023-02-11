@@ -9,21 +9,21 @@ import 'package:we_care/presentation/SplashScreen.dart';
 void main() {
   runApp(
     MaterialApp(
-      home: SplashScreen(),
+      home:  DashBoard(),
       routes: {
-        SplashScreen.route: (context) => SplashScreen(),
-        LandingScreen.route: (context) => LandingScreen(),
-        LoginScreen.route: (context) => LoginScreen(),
+        SplashScreen.route: (context) => const SplashScreen(),
+        LandingScreen.route: (context) => const LandingScreen(),
+        LoginScreen.route: (context) => const LoginScreen(),
         UserRegisterScreen.route: (context) => UserRegisterScreen(),
         NGORegisterScreen.route: (context) => NGORegisterScreen(),
-        DashBoard.route: (context) => DashBoard(),
+        DashBoard.route: (context) =>  DashBoard(),
       },
       theme: ThemeData(
 
         useMaterial3: true,
         inputDecorationTheme: InputDecorationTheme(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(9)),
-            fillColor: Color(0xFFD9D9D9),
+            fillColor: const Color(0xFFD9D9D9),
             filled: true),
         textTheme: const TextTheme(
           displayLarge: TextStyle(
