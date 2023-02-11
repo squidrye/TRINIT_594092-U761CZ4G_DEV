@@ -4,13 +4,26 @@ import 'package:flutter/material.dart';
 
 import 'LandingScreen.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   static const String route = "/Splash";
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    Timer(
+      const Duration(seconds: 4),
+      () => Navigator.of(context).pushReplacementNamed(LandingScreen.route),
+    );
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    Timer(const Duration(seconds: 4), () => Navigator.of(context).pushReplacementNamed(LandingScreen.route));
     return Scaffold(
       backgroundColor: Color(0xFF486C7C),
       body: Image.asset(
