@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:we_care/presentation/widget/CommonWidgets.dart';
+import 'package:we_care/service/db.dart';
 
+import 'DashBoard.dart';
 import 'NGORegisterScreen.dart';
 
 class CampaignForm extends StatefulWidget {
@@ -55,8 +57,7 @@ class _CampaignFormState extends State<CampaignForm> {
                   const Center(
                       child: Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: Text(
-                        "Add necessary Details , Images & Proof of concept"),
+                    child: Text("Add necessary Details , Images & Proof of concept"),
                   )),
                   Stepper(
                     physics: const NeverScrollableScrollPhysics(),
@@ -111,9 +112,19 @@ class _CampaignFormState extends State<CampaignForm> {
                       alter: false,
                       width: double.infinity,
                       height: 50,
-                      onPressed: () {
-                        Navigator.of(context)
-                            .pushReplacementNamed(NGORegisterScreen.route);
+                      onPressed: () async {
+                        await startCampaign(
+                          title: widget._title.text,
+                          category: selectedCauses[0],
+                          description: widget._description.text,
+                          targetAmount: widget._description.text,
+                          country: widget._country.text,
+                          startDate: widget.startDate,
+                          endDate: widget.endDate,
+                          currency: widget._currencyType.text,
+                          creatorId: await getLoggedUser()
+                        );
+                        Navigator.of(context).pushReplacementNamed(DashBoard.route);
                       },
                     ),
                   ),
@@ -133,7 +144,10 @@ class _CampaignFormState extends State<CampaignForm> {
         state: _currentStep > 0 ? StepState.complete : StepState.indexed,
         content: Column(
           children: [
-            XField(value: "Title", controller: widget._title,),
+            XField(
+              value: "Title",
+              controller: widget._title,
+            ),
           ],
         ),
         title: XSubTitle(value: "Campaign Title"),
@@ -146,8 +160,7 @@ class _CampaignFormState extends State<CampaignForm> {
           child: GridView(
             primary: false,
             shrinkWrap: true,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3, childAspectRatio: 2),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 2),
             children: [
               ...causes
                   .map(
@@ -178,7 +191,8 @@ class _CampaignFormState extends State<CampaignForm> {
         state: _currentStep > 2 ? StepState.complete : StepState.indexed,
         title: XSubTitle(value: "Short Description"),
         content: XTextArea(
-          value: "Short description about campaign", controller: widget._description,
+          value: "Short description about campaign",
+          controller: widget._description,
         ),
       ),
       Step(

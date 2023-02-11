@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:we_care/presentation/DashBoard.dart';
+import 'package:we_care/presentation/LandingScreen.dart';
 import 'package:we_care/presentation/widget/CommonWidgets.dart';
 
 import '../service/firebase_service.dart';
@@ -60,7 +61,7 @@ class LoginScreen extends StatelessWidget {
                     const Text("Don't have an account?"),
                     TextButton(
                         onPressed: () {
-                          Navigator.of(context).pushReplacementNamed(DashBoard.route);
+                          Navigator.of(context).pushReplacementNamed(LandingScreen.route);
                         },
                         child: const Text("Sign Up")),
                   ],

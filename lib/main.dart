@@ -1,4 +1,6 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:we_care/firebase_options.dart';
 import 'package:we_care/presentation/CampaignForm.dart';
 import 'package:we_care/presentation/DashBoard.dart';
 import 'package:we_care/presentation/LandingScreen.dart';
@@ -9,10 +11,12 @@ import 'package:we_care/presentation/SplashScreen.dart';
 import 'package:we_care/presentation/details.dart';
 
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options:DefaultFirebaseOptions.android);
   runApp(
     MaterialApp(
-      home:   const SplashScreen(),
+      home:DashBoard(),
       routes: {
         SplashScreen.route: (context) => const Details(),
         LandingScreen.route: (context) => const LandingScreen(),
