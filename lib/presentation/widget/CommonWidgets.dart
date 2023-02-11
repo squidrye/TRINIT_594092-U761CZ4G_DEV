@@ -126,10 +126,11 @@ class XButton extends StatelessWidget {
 }
 
 // ignore: must_be_immutable
-class Details extends StatelessWidget {
+class ShortDetails extends StatelessWidget {
   String value;
   int raised;
-  Details({required this.value, required this.raised, Key? key}) : super(key: key);
+  ShortDetails({required this.value, required this.raised, Key? key})
+      : super(key: key);
 
   //  Details({Key? key}) : super(key: key);
 
@@ -152,43 +153,203 @@ class Details extends StatelessWidget {
           Container(
             height: 230 / 1.7,
             decoration: BoxDecoration(
-                color: Colors.blueAccent,
+                color: Color.fromARGB(255, 24, 68, 143),
                 borderRadius: BorderRadius.circular(10)),
             child: Padding(
               padding: const EdgeInsets.only(left: 20),
               child: Column(
-                children: [XSubTitle(value: 'Title'),
-                const Text('Details'),
+                children: [
+                  XSubTitle(value: 'Title'),
+                  const Text('Details'),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 0, right: 5, bottom: 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Text("Raised" ,style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                        const SizedBox(width: 10,),
+                        Text("80 %", style: TextStyle(fontSize: 19, color: Colors.green,fontWeight: FontWeight.bold),),
 
-                const SizedBox(height: 10,),
+                         const SizedBox(width: 30,),
 
-                Padding(
-                  padding: const EdgeInsets.only(left: 0,right: 5,bottom: 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                    Text("Raised $raised %"),
-
-                    XButton(onPressed: (){}, 
-                    alter: true,
-                    width: 120, 
-                    height: 30, 
-                    text: 'View Details')
-
-                    
-                  ],),
-                )
-
-                
-
+                        XButton(
+                            onPressed: () {},
+                            alter: true,
+                            width: 120,
+                            height: 30,
+                            text: 'View Details')
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
             // color: Colors.blueAccent,
           ),
-
         ]),
       ),
     );
   }
 }
+
+class XDetails extends StatelessWidget {
+  String title= "Title";
+
+  XDetails({required this.title, Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 400,
+      width: (MediaQuery.of(context).size.width),
+      // color: Colors.green,
+      decoration: const BoxDecoration(
+        color: Colors.white
+
+      ),
+      child: Card(
+        elevation: 7,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              decoration: const BoxDecoration(color: Colors.white),
+              height: 200,
+              width: (MediaQuery.of(context).size.width),
+              child:  Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Column(
+                  children: [
+                    XSubTitle(value: title),
+                     const Text('Details'),
+      
+                   
+                        ],
+                      ),
+                    )
+        )],
+          ),
+      ));
+        
+  }
+}
+
+class Investor extends StatelessWidget {
+  String title= "Title";
+
+  Investor({required this.title, Key? key})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return  Card(
+      
+      elevation: 10,
+      color: Colors.white,
+      child: Container(
+        height: 120,
+        width: (MediaQuery.of(context).size.width),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 10,top: 10),
+              child: Row(
+                children: const [
+                  CircleAvatar(
+                    backgroundColor: Colors.grey,
+                  ),
+                  SizedBox(width: 10,),
+                  Text("Steve Rogers"),
+                  SizedBox(width: 50,),
+                  Text("10000 Rs" ,style: TextStyle(fontSize: 17),)
+
+                ],
+              ),
+            ),
+            const SizedBox(height: 9,),
+
+            Padding(
+              padding:  const EdgeInsets.only(left:8.0),
+              child: Row(children:  [
+                const CircleAvatar(
+                  radius: 10,
+                  backgroundColor: Colors.white24,
+                ),
+                const SizedBox(width: 10,),
+                TextButton(child: const Text("Send a Message"),
+                onPressed: (){},
+                )
+              ],),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class About extends StatelessWidget {
+  const About({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 170,
+      width: 315,
+      color: Colors.white,
+      child:  Card(
+        elevation: 5,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20,top: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              Text("About",style: TextStyle(fontSize: 25),),
+
+              SizedBox(height: 20,),
+
+              Text("Details")
+            ],
+          ),
+          
+        ),
+      ),
+    );
+  }
+}
+
+class Vision extends StatelessWidget {
+  const Vision({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 170,
+      width: 400,
+      color: Colors.white,
+      child:  Card(
+         
+        elevation: 5,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20,top: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              Text("Vision",style: TextStyle(fontSize: 25),),
+
+              SizedBox(height: 20,),
+
+              Text("Details")
+            ],
+          ),
+          
+        ),
+      ),
+    );
+  }
+}
+

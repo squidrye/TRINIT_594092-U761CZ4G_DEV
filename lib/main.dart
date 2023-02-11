@@ -1,24 +1,22 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:we_care/presentation/CampaignForm.dart';
-import 'package:we_care/firebase_options.dart';
 import 'package:we_care/presentation/DashBoard.dart';
 import 'package:we_care/presentation/LandingScreen.dart';
 import 'package:we_care/presentation/LoginScreen.dart';
 import 'package:we_care/presentation/NGORegisterScreen.dart';
 import 'package:we_care/presentation/UserRegisterScreen.dart';
 import 'package:we_care/presentation/SplashScreen.dart';
+import 'package:we_care/presentation/details.dart';
 
-void main() async{
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.android);
+
+void main() {
   runApp(
     MaterialApp(
-      home:  NGORegisterScreen(),
+      home:   const SplashScreen(),
       routes: {
-        SplashScreen.route: (context) => const SplashScreen(),
-        LandingScreen.route: (context) => LandingScreen(),
-        LoginScreen.route: (context) => LoginScreen(),
+        SplashScreen.route: (context) => const Details(),
+        LandingScreen.route: (context) => const LandingScreen(),
+        LoginScreen.route: (context) =>  LoginScreen(),
         UserRegisterScreen.route: (context) => UserRegisterScreen(),
         NGORegisterScreen.route: (context) => NGORegisterScreen(),
         DashBoard.route: (context) =>  DashBoard(),
