@@ -153,7 +153,7 @@ class ShortDetails extends StatelessWidget {
           Container(
             height: 230 / 1.7,
             decoration: BoxDecoration(
-                color: Colors.blueAccent,
+                color: Color.fromARGB(255, 24, 68, 143),
                 borderRadius: BorderRadius.circular(10)),
             child: Padding(
               padding: const EdgeInsets.only(left: 20),
@@ -168,9 +168,14 @@ class ShortDetails extends StatelessWidget {
                     padding:
                         const EdgeInsets.only(left: 0, right: 5, bottom: 0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text("Raised $raised %"),
+                        const Text("Raised" ,style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                        const SizedBox(width: 10,),
+                        Text("80 %", style: TextStyle(fontSize: 19, color: Colors.green,fontWeight: FontWeight.bold),),
+
+                         const SizedBox(width: 30,),
+
                         XButton(
                             onPressed: () {},
                             alter: true,
