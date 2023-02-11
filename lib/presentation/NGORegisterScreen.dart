@@ -21,15 +21,15 @@ class _NGORegisterScreenState extends State<NGORegisterScreen> {
       child: Scaffold(
         body: Container(
           height: double.infinity,
-          margin: EdgeInsets.all(4),
-          padding: EdgeInsets.all(4),
+          margin: const EdgeInsets.all(4),
+          padding: const EdgeInsets.all(4),
           child: Form(
             child: SingleChildScrollView(
               child: Column(
                 children: [
                   XTitle(value: "Create New Account"),
                   Stepper(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     currentStep: _currentStep,
                     onStepContinue: () {
                       if (getSteps().length - 1 == _currentStep) {
@@ -53,7 +53,7 @@ class _NGORegisterScreenState extends State<NGORegisterScreen> {
                           if (details.currentStep != getSteps().length - 1)
                             CircleAvatar(
                               child: IconButton(
-                                icon: Icon(Icons.arrow_downward),
+                                icon: const Icon(Icons.arrow_downward),
                                 onPressed: details.onStepContinue,
                               ),
                             ),
@@ -62,7 +62,7 @@ class _NGORegisterScreenState extends State<NGORegisterScreen> {
                           ),
                           CircleAvatar(
                             child: IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.arrow_upward,
                               ),
                               onPressed: details.onStepCancel,
@@ -94,7 +94,7 @@ class _NGORegisterScreenState extends State<NGORegisterScreen> {
                           onPressed: () {
                             Navigator.of(context).pushReplacementNamed(LoginScreen.route);
                           },
-                          child: Text("Sign In"))
+                          child: const Text("Sign In"))
                     ],
                   )
                 ],

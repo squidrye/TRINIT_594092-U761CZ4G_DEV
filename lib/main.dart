@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:we_care/presentation/DashBoard.dart';
 import 'package:we_care/presentation/LandingScreen.dart';
 import 'package:we_care/presentation/LoginScreen.dart';
 import 'package:we_care/presentation/NGORegisterScreen.dart';
@@ -15,6 +16,7 @@ void main() {
         LoginScreen.route: (context) => LoginScreen(),
         UserRegisterScreen.route: (context) => UserRegisterScreen(),
         NGORegisterScreen.route: (context) => NGORegisterScreen(),
+        DashBoard.route: (context) => DashBoard(),
       },
       theme: ThemeData(
 

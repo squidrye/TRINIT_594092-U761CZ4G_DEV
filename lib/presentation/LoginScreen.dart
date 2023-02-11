@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:we_care/presentation/DashBoard.dart';
 import 'package:we_care/presentation/LandingScreen.dart';
 import 'package:we_care/presentation/widget/CommonWidgets.dart';
 
@@ -38,14 +39,16 @@ class LoginScreen extends StatelessWidget {
                 Container(
                     margin: EdgeInsets.only(top: 20, bottom: 20, right: 20, left: 20),
                     child:
-                        XButton(onPressed: () {}, alter: false, width: double.infinity, height: 50, text: "Sign In")),
+                        XButton(onPressed: () {
+                          Navigator.of(context).pushNamed(DashBoard.route);
+                        }, alter: false, width: double.infinity, height: 50, text: "Sign In")),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text("Don't have an account?"),
                     TextButton(
                         onPressed: () {
-                          Navigator.of(context).pushReplacementNamed(LandingScreen.route);
+                          Navigator.of(context).pushReplacementNamed(DashBoard.route);
                         },
                         child: Text("Sign Up")),
                   ],

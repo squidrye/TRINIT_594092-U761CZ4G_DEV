@@ -43,14 +43,14 @@ class _LandingScreenState extends State<LandingScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "Keep track of all your expenditures, budgets, bill splits all in one place.",
+                    "A one stop solution for both philanthropists and NGOs",
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "View, sort and categorize all expenses, watch out for over all stats, notify people you have paid for.",
+                    "View, sort and categorize all organizations trying to make a word a better place for other people.",
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
