@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:we_care/presentation/widget/CommonWidgets.dart';
+import 'package:we_care/service/db.dart';
 import 'package:we_care/service/firebase_service.dart';
 
+import 'DashBoard.dart';
 import 'LoginScreen.dart';
 
 class NGORegisterScreen extends StatefulWidget {
@@ -90,9 +92,17 @@ class _NGORegisterScreenState extends State<NGORegisterScreen> {
                       alter: false,
                       width: double.infinity,
                       height: 50,
-                      onPressed: () async{
-                        await signUp(widget._email.text, widget._password.text);
-                        Navigator.of(context).pushReplacementNamed(NGORegisterScreen.route);
+                      onPressed: () async {
+                        UserCredential? res = await signUp(widget._email.text, widget._password.text);
+                        await sendNGOInformation(
+                          userId: res!.user!.uid,
+                          name: widget._name.text,
+                          cause: widget._cause.text,
+                          vision: widget._vision.text,
+                          impact: widget._vision.text
+                        );
+                        await signIn(widget._email.text,widget._password.text);
+                        Navigator.of(context).pushReplacementNamed(DashBoard.route);
                       },
                     ),
                   ),
@@ -123,10 +133,10 @@ class _NGORegisterScreenState extends State<NGORegisterScreen> {
         state: _currentStep > 0 ? StepState.complete : StepState.indexed,
         content: Column(
           children: [
-            XField(value: "Name",controller: widget._name),
-            XField(value: "Email",controller: widget._email),
-            XField(value: "Password",controller: widget._password),
-            XField(value: "Confirm Password",controller: widget._confirm),
+            XField(value: "Name", controller: widget._name),
+            XField(value: "Email", controller: widget._email),
+            XField(value: "Password", controller: widget._password),
+            XField(value: "Confirm Password", controller: widget._confirm),
           ],
         ),
         title: XSubTitle(value: "Enter Basic Details"),

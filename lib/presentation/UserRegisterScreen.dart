@@ -1,7 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:we_care/presentation/LoginScreen.dart';
 import 'package:we_care/presentation/widget/CommonWidgets.dart';
 import 'package:we_care/service/firebase_service.dart';
+import 'package:we_care/service/db.dart';
+
+import 'DashBoard.dart';
 
 class UserRegisterScreen extends StatefulWidget {
   static const route = "/UserRegisterScreen";
@@ -103,8 +107,12 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
                       width: double.infinity,
                       height: 50,
                       onPressed: () async {
-                        await signUp(widget._email.text, widget._password.text);
-                        Navigator.of(context).pushReplacementNamed(UserRegisterScreen.route);
+                        UserCredential? res = await signUp(widget._email.text, widget._password.text);
+                        if (res != null)
+                          await sendUserInformation(
+                              categories: selectedCauses, userId: res.user!.uid, name: widget._name.text);
+                        await signIn(widget._email.text,widget._password.text);
+                        Navigator.of(context).pushReplacementNamed(DashBoard.route);
                       },
                     ),
                   ),

@@ -14,7 +14,7 @@ void main() async{
   await Firebase.initializeApp(options: DefaultFirebaseOptions.android);
   runApp(
     MaterialApp(
-      home:  CampaignForm(),
+      home:  NGORegisterScreen(),
       routes: {
         SplashScreen.route: (context) => const SplashScreen(),
         LandingScreen.route: (context) => LandingScreen(),
@@ -22,7 +22,7 @@ void main() async{
         UserRegisterScreen.route: (context) => UserRegisterScreen(),
         NGORegisterScreen.route: (context) => NGORegisterScreen(),
         DashBoard.route: (context) =>  DashBoard(),
-        CampaignForm.route: (context) => const CampaignForm()
+        CampaignForm.route: (context) => CampaignForm()
       },
       theme: ThemeData(
 
