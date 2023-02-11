@@ -5,11 +5,12 @@ import 'package:we_care/presentation/LoginScreen.dart';
 import 'package:we_care/presentation/NGORegisterScreen.dart';
 import 'package:we_care/presentation/UserRegisterScreen.dart';
 import 'package:we_care/presentation/SplashScreen.dart';
+import 'package:we_care/presentation/details.dart';
 
 void main() {
   runApp(
     MaterialApp(
-      home:  DashBoard(),
+      home:  const Details(),
       routes: {
         SplashScreen.route: (context) => const SplashScreen(),
         LandingScreen.route: (context) => const LandingScreen(),

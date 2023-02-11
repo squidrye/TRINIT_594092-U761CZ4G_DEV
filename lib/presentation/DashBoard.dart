@@ -51,7 +51,7 @@ class DashBoard extends StatelessWidget {
                     )),
                 const SizedBox(height: 15,),
                 Container(
-                  margin: EdgeInsets.only(left: 30,right: 30),
+                  margin: const EdgeInsets.only(left: 30,right: 30),
                   width: MediaQuery.of(context).size.width * 0.8,
                   height: 60,
                   decoration: const BoxDecoration(
@@ -83,9 +83,9 @@ class DashBoard extends StatelessWidget {
                      physics: const BouncingScrollPhysics(
                      parent: AlwaysScrollableScrollPhysics()),
                       children:[ 
-                        Details(value: 'value',raised: 10,),
+                        ShortDetails(value: 'value',raised: 10,),
                         const SizedBox(height: 30,),
-                        Details(value: 'value',raised: 10,),
+                        ShortDetails(value: 'value',raised: 10,),
 
                         const SizedBox(height: 70,),
 
@@ -94,9 +94,9 @@ class DashBoard extends StatelessWidget {
                            alter: false,
                             width: 150,
                              height: 60, 
-                             text: "LOAD MORE !!")
+                             text: "LOAD MORE !!"),
 
-
+                       const SizedBox(height: 70,),
                       
                       
                       ]),
