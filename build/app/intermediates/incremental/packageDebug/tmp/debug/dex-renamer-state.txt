@@ -1,4 +1,0 @@
-#Sat Feb 11 11:51:13 IST 2023
-base.0=D\:\\hackathon\\TRINIT_594092-U761CZ4G_DEV\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-renamed.0=classes.dex
-path.0=classes.dex

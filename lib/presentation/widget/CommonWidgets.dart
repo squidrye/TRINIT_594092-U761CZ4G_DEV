@@ -42,7 +42,8 @@ class XSubTitle extends Text {
 
 class XField extends StatelessWidget {
   String value;
-  XField({required this.value, Key? key}) : super(key: key);
+  TextEditingController controller;
+  XField({required this.value, Key? key,required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +53,7 @@ class XField extends StatelessWidget {
       child: Align(
         alignment: Alignment.centerLeft,
         child: TextFormField(
+          controller: controller,
           decoration: InputDecoration(
             hintText: value,
           ),
@@ -63,7 +65,8 @@ class XField extends StatelessWidget {
 
 class XTextArea extends StatelessWidget {
   String value;
-  XTextArea({required this.value, Key? key}) : super(key: key);
+  TextEditingController controller;
+  XTextArea({required this.value, Key? key,required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +77,7 @@ class XTextArea extends StatelessWidget {
         alignment: Alignment.centerLeft,
         child: TextFormField(
           maxLines: 7,
+          controller: controller,
           decoration: InputDecoration(hintText: value),
         ),
       ),

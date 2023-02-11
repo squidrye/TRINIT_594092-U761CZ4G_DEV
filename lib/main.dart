@@ -5,16 +5,16 @@ import 'package:we_care/presentation/LoginScreen.dart';
 import 'package:we_care/presentation/NGORegisterScreen.dart';
 import 'package:we_care/presentation/UserRegisterScreen.dart';
 import 'package:we_care/presentation/SplashScreen.dart';
-import 'package:we_care/presentation/details.dart';
+
 
 void main() {
   runApp(
     MaterialApp(
-      home:  const Details(),
+      home:  const SplashScreen(),
       routes: {
         SplashScreen.route: (context) => const SplashScreen(),
         LandingScreen.route: (context) => const LandingScreen(),
-        LoginScreen.route: (context) => const LoginScreen(),
+        LoginScreen.route: (context) =>  LoginScreen(),
         UserRegisterScreen.route: (context) => UserRegisterScreen(),
         NGORegisterScreen.route: (context) => NGORegisterScreen(),
         DashBoard.route: (context) =>  DashBoard(),
