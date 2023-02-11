@@ -15,8 +15,11 @@ class DashBoard extends StatelessWidget {
             height: double.infinity,
             width: double.infinity,
             color: Theme.of(context).primaryColorLight,
-            child: Row(
-              children: [buildStatsCards()],
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [buildStatsCards(), buildStatsCards(), buildStatsCards()],
+              ),
             ),
           ),
           Container(
@@ -36,6 +39,7 @@ class DashBoard extends StatelessWidget {
     return Align(
       alignment: Alignment.topLeft,
       child: Container(
+        width:150,
         height: 200,
         child: Card(
           child: Column(
