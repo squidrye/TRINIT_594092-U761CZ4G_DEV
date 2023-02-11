@@ -2,13 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:we_care/presentation/widget/CommonWidgets.dart';
 
-import 'LoginScreen.dart';
 import 'NGORegisterScreen.dart';
 
 class CampaignForm extends StatefulWidget {
   static const route = "/CampaignForm";
-  const CampaignForm({Key? key}) : super(key: key);
+  CampaignForm({Key? key}) : super(key: key);
 
+  TextEditingController _title = TextEditingController();
+  TextEditingController _description = TextEditingController();
+  TextEditingController _targetAmount = TextEditingController();
+  TextEditingController _country = TextEditingController();
+  TextEditingController _currencyType = TextEditingController();
+
+  DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now();
   @override
   State<CampaignForm> createState() => _CampaignFormState();
 }
@@ -126,7 +133,7 @@ class _CampaignFormState extends State<CampaignForm> {
         state: _currentStep > 0 ? StepState.complete : StepState.indexed,
         content: Column(
           children: [
-            XField(value: "Title"),
+            XField(value: "Title", controller: widget._title,),
           ],
         ),
         title: XSubTitle(value: "Campaign Title"),
@@ -171,7 +178,7 @@ class _CampaignFormState extends State<CampaignForm> {
         state: _currentStep > 2 ? StepState.complete : StepState.indexed,
         title: XSubTitle(value: "Short Description"),
         content: XTextArea(
-          value: "Short description about campaign",
+          value: "Short description about campaign", controller: widget._description,
         ),
       ),
       Step(
@@ -180,7 +187,7 @@ class _CampaignFormState extends State<CampaignForm> {
         title: XSubTitle(value: "Details"),
         content: Column(
           children: [
-            XField(value: "Target Amount"),
+            XField(value: "Target Amount", controller: widget._targetAmount),
             Row(
               children: [
                 ElevatedButton(
@@ -193,8 +200,8 @@ class _CampaignFormState extends State<CampaignForm> {
                 )
               ],
             ),
-            XField(value: "Country"),
-            XField(value: "Currency Type"),
+            XField(value: "Country", controller: widget._country),
+            XField(value: "Currency Type", controller: widget._currencyType),
           ],
         ),
       ),
