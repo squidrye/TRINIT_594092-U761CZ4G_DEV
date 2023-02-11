@@ -1,22 +1,26 @@
 class Campaign{
+  final String id;
   final String title;
   final String category;
-  final String shortDescription;
+  final String description;
   final String targetAmount;
   final DateTime startDate;
   final DateTime endDate;
   final String country;
-  final String currencyType;
+  final String currency;
+  final String creatorId;
 
   Campaign(
       {required this.title,
       required this.category,
       required this.targetAmount,
       required this.startDate,
-      required this.shortDescription,
+      required this.description,
       required this.endDate,
       required this.country,
-      required this.currencyType});
+      required this.currency,
+      required this.id,
+        required this.creatorId});
 
 
 }
