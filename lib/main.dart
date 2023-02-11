@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:we_care/presentation/CampaignForm.dart';
 import 'package:we_care/presentation/DashBoard.dart';
 import 'package:we_care/presentation/LandingScreen.dart';
 import 'package:we_care/presentation/LoginScreen.dart';
@@ -9,7 +10,7 @@ import 'package:we_care/presentation/SplashScreen.dart';
 void main() {
   runApp(
     MaterialApp(
-      home:  UserRegisterScreen(),
+      home:  CampaignForm(),
       routes: {
         SplashScreen.route: (context) => const SplashScreen(),
         LandingScreen.route: (context) => const LandingScreen(),
@@ -17,6 +18,7 @@ void main() {
         UserRegisterScreen.route: (context) => UserRegisterScreen(),
         NGORegisterScreen.route: (context) => NGORegisterScreen(),
         DashBoard.route: (context) =>  DashBoard(),
+        CampaignForm.route: (context) => const CampaignForm()
       },
       theme: ThemeData(
 
