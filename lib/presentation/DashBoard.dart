@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:we_care/presentation/LoginScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:we_care/presentation/widget/CommonWidgets.dart';
 
+import '../model/Campaign.dart';
+import '../service/db.dart';
 import 'CampaignForm.dart';
 
 class DashBoard extends StatefulWidget {
@@ -14,17 +16,14 @@ class DashBoard extends StatefulWidget {
 
 class _DashBoardState extends State<DashBoard> {
   String dropDownValue = 'All Categories';
-
-  // List of items in our dropdown menu
-
-  final items = [
-    'All Categories',
-    'Nature',
-    'Education',
-    'Social',
-    'War-Relief',
-    'Animals',
-  ];
+  TextEditingController _controller = TextEditingController();
+  late bool val;
+  @override
+  void initState() {
+    SharedPreferences.getInstance().then((value) {
+      val = value.getBool("ngo")!;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,76 +35,135 @@ class _DashBoardState extends State<DashBoard> {
               onPressed: () {
                 Navigator.of(context).pushNamed(CampaignForm.route);
               }),
-
-          body: SingleChildScrollView(
-            
-            child: Container(
-              height:1000,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Padding(
-                      padding: EdgeInsets.only(left: 30, top: 20),
-                      child: Text("Popular Campaigns",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w800,
-                            color: Color.fromARGB(255, 65, 95, 119),
-                          ))),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 30, right: 30),
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: 60,
-                    decoration: const BoxDecoration(),
-                    child: DropdownButton(
-                      value: dropDownValue,
-                      icon: const Icon(Icons.keyboard_arrow_down),
-                      items: items.map((String items) {
-                        return DropdownMenuItem(
-                          value: items,
-                          child: Text(items),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          dropDownValue = newValue!;
-                        });
-                      },
+          body: Container(
+            height: double.infinity,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(8),
+                      child: Container(
+                        width: 320,
+                        child: InkWell(
+                          onTap: () async {
+                            await showSearch(context: context, delegate: CustomSearchDelegate());
+                          },
+                          child: Card(
+                            child: TextField(
+                              controller: _controller,
+                              enabled: false,
+                              decoration: const InputDecoration(
+                                fillColor: Colors.white,
+                                hintText: "Search Campaigns",
+                                border: OutlineInputBorder(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
+                    PopupMenuButton<String>(onSelected: (value) {
+                      setState(() {
+                        dropDownValue = value;
+                      });
+                    }, itemBuilder: (context) {
+                      return [
+                        PopupMenuItem(
+                          child: const Text("All Categories"),
+                          value: 'All Categories',
+                          onTap: () {
+                            setState(() {
+                              dropDownValue = "All Categories";
+                            });
+                          },
+                        ),
+                        PopupMenuItem(
+                            child: const Text("Nature"),
+                            value: 'Nature',
+                            onTap: () {
+                              setState(() {
+                                dropDownValue = "Nature";
+                              });
+                            }),
+                        PopupMenuItem(
+                            child: const Text("Education"),
+                            value: 'Education',
+                            onTap: () {
+                              setState(() {
+                                dropDownValue = "Education";
+                              });
+                            }),
+                        PopupMenuItem(
+                          child: const Text("Social"),
+                          value: 'Social',
+                          onTap: () {
+                            setState(
+                              () {
+                                dropDownValue = "Social";
+                              },
+                            );
+                          },
+                        ),
+                        PopupMenuItem(
+                          child: const Text("War-Relief"),
+                          value: 'War-Relief',
+                          onTap: () {
+                            setState(
+                              () {
+                                dropDownValue = "War-Relief";
+                              },
+                            );
+                          },
+                        ),
+                        PopupMenuItem(
+                          child: const Text("Animals"),
+                          value: 'Animals',
+                          onTap: () {
+                            setState(
+                              () {
+                                dropDownValue = "Animals";
+                              },
+                            );
+                          },
+                        ),
+                      ];
+                    })
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 30, top: 20),
+                  child: XTitle(value: "Popular Campaigns"),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Expanded(
+                  child: FutureBuilder<List<Campaign>?>(
+                    future: dropDownValue == "All Categories"
+                        ? getAllCampaigns()
+                        : searchCampaignsByCategory(category: dropDownValue),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else {
+                        return ListView.builder(
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            debugPrint(snapshot.data.toString());
+                            return ShortDetails(
+                                campaign: snapshot.data![index], id: snapshot.data![index].id, raised: 3000);
+                          },
+                        );
+                      }
+                    },
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Expanded(
-                    child: ListView(
-                        // physics: NeverScrollableScrollPhysics(),
-                        children: [
-                          ShortDetails(
-                            value: 'value',
-                            raised: 10,
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          ShortDetails(
-                            value: 'value',
-                            raised: 10,
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          XButton(onPressed: () {}, alter: true, width: 50, height: 50, text: "LOAD MORE !!"),
-                          const SizedBox(
-                            height: 20,
-                          )
-                        ]),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           )),
     );
@@ -129,6 +187,91 @@ class _DashBoardState extends State<DashBoard> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class CustomSearchDelegate extends SearchDelegate {
+// Demo list to show querying
+  List<String> searchTerms = [];
+
+// first overwrite to
+// clear the search text
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(
+        onPressed: () {
+          query = '';
+        },
+        icon: Icon(Icons.clear),
+      ),
+    ];
+  }
+
+// second overwrite to pop out of search menu
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        close(context, null);
+      },
+      icon: Icon(Icons.arrow_back),
+    );
+  }
+
+// third overwrite to show query result
+  @override
+  Widget buildResults(BuildContext context) {
+    return FutureBuilder<List<Campaign>?>(
+      future: searchCampaignsByCategory(category: query),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else {
+          return ListView.builder(
+            itemCount: snapshot.data!.length,
+            itemBuilder: (context, index) {
+              debugPrint(snapshot.data.toString());
+              return ShortDetails(
+                campaign: snapshot.data![index],
+                raised: 3000,
+                id: snapshot.data![index].id,
+              );
+            },
+          );
+        }
+      },
+    );
+  }
+
+// last overwrite to show the
+// querying process at the runtime
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    return FutureBuilder<List<Campaign>?>(
+      future: searchCampaignsByCategory(category: query),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else {
+          return ListView.builder(
+            itemCount: snapshot.data!.length,
+            itemBuilder: (context, index) {
+              debugPrint(snapshot.data.toString());
+              return ShortDetails(
+                campaign: snapshot.data![index],
+                raised: 3000,
+                id: snapshot.data![index].id,
+              );
+            },
+          );
+        }
+      },
     );
   }
 }

@@ -1,17 +1,21 @@
 class Campaign{
   final String id;
-  final String title;
-  final String category;
-  final String description;
-  final String targetAmount;
+  final String title;//
+  final String category;//
+  final String description;//
+  final String targetAmount;//
   final DateTime startDate;
   final DateTime endDate;
   final String country;
-  final String currency;
+  final String currency;//
   final String creatorId;
+  final String vision;
+  final String about;
 
   Campaign(
       {required this.title,
+        required this.vision,
+        required this.about,
       required this.category,
       required this.targetAmount,
       required this.startDate,

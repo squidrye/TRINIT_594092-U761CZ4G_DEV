@@ -5,12 +5,9 @@ import 'package:we_care/model/Campaign.dart';
 
 Dio dio = Dio();
 Future<void> sendUserInformation(
-    {required String name,
-    required String userId,
-    required List<String> categories}) async {
+    {required String name, required String userId, required List<String> categories}) async {
   try {
-    dio.post("http://localhost:3000/users/register",
-        data: {'id': userId, 'categories': categories, 'name': name});
+    dio.post("http://localhost:3000/users/register", data: {'id': userId, 'categories': categories, 'name': name});
   } on DioError {
     debugPrint("dioerror");
   } catch (e) {
@@ -74,8 +71,10 @@ Future<void> startCampaign(
 
 Future<List<Campaign>?> getAllCampaigns() async {
   try {
-    var response = await dio.get("http://localhost:3000/campaigns");
-    List<Campaign> allCampaigns = getListCampaignsResponse(response);
+    var id = await getLoggedUser();
+    var response = await dio.get("http://localhost:3000/campaigns?loggedUserId=${id}");
+    List<Campaign>? allCampaigns = getListCampaignsResponse(response);
+    debugPrint(allCampaigns!.toString());
     return allCampaigns;
   } on DioError {
     debugPrint("dioerror");
@@ -84,13 +83,11 @@ Future<List<Campaign>?> getAllCampaigns() async {
   }
 }
 
-Future<List<Campaign>?> searchCampaignsByCategory({
-  required String category
-}) async {
-  try{
+Future<List<Campaign>?> searchCampaignsByCategory({required String category}) async {
+  try {
     var response = await dio.get("http://localhost:3000/campaigns/search?category=${category}");
     // debugPrint(response.data);
-    List<Campaign> allCampaigns = getListCampaignsResponse(response);
+    List<Campaign>? allCampaigns = getListCampaignsResponse(response);
     return allCampaigns;
   } on DioError {
     debugPrint("dioerror");
@@ -99,32 +96,49 @@ Future<List<Campaign>?> searchCampaignsByCategory({
   }
 }
 
-List<Campaign> getListCampaignsResponse(var response) {
+List<Campaign>? getListCampaignsResponse(var response) {
   List<dynamic> l1 = response.data;
   debugPrint(response.data.toString());
   List<Campaign> allCampaigns = l1.map((campaignJson) {
+    debugPrint("CAMPAIGN IS ${campaignJson["creatorId"]}");
     return Campaign(
-        title: campaignJson["title"],
-        category: campaignJson["category"],
-        targetAmount: campaignJson["targetAmount"],
-        startDate: DateTime.parse(campaignJson["startDate"]),
-        description: campaignJson["description"],
-        endDate: DateTime.parse(campaignJson["endDate"]),
-        country: campaignJson["country"],
-        currency: campaignJson["currency"],
-        id: campaignJson["id"],
-        creatorId: campaignJson["creatorId"]);
+        about: campaignJson['cause'],
+        vision: campaignJson['vision'],
+        title: campaignJson["title"], //
+        category: campaignJson["category"], //
+        targetAmount: campaignJson["targetAmount"], //
+        startDate: DateTime.now(), //
+        description: campaignJson["description"], //
+        endDate: DateTime.now(), //
+        country: campaignJson["country"], //
+        currency: campaignJson["currency"], //
+        id: campaignJson["id"], //
+        creatorId: 'rem');
   }).toList();
   return allCampaigns;
 }
 
-Future<Campaign?> getCampaignById({
-  required String campaignId
-}) async {
+Future<Campaign?> getCampaignById({required String campaignId}) async {
   try {
-    var response = await dio.get(
-        "http://localhost:3000/campaigns/getCampaignById?campaignId=${campaignId}");
-    Campaign campaign = response.data;
+    var response = await dio.get("http://localhost:3000/campaigns/getCampaignById?campaignId=${campaignId}");
+    var campaignJson = response.data;
+
+    debugPrint("Campaign DATA ${campaignJson.toString()}");
+    Campaign campaign = Campaign(
+
+        about: campaignJson['cause'],
+        vision: campaignJson['vision'],
+        title: campaignJson["title"],
+        category: campaignJson["category"],
+        targetAmount: campaignJson["targetAmount"],
+        startDate: DateTime.now(),
+        description: campaignJson["description"],
+        endDate: DateTime.now(),
+        country: campaignJson["country"],
+        currency: campaignJson["currency"],
+        id: campaignId,
+        creatorId: '34');
+
     return campaign;
   } on DioError {
     debugPrint("dioerror");

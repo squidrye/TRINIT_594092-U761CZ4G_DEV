@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:we_care/presentation/LoginScreen.dart';
 import 'package:we_care/presentation/widget/CommonWidgets.dart';
 import 'package:we_care/service/firebase_service.dart';
@@ -108,10 +109,15 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
                       height: 50,
                       onPressed: () async {
                         UserCredential? res = await signUp(widget._email.text, widget._password.text);
-                        if (res != null)
+                        if (res != null) {
                           await sendUserInformation(
-                              categories: selectedCauses, userId: res.user!.uid, name: widget._name.text);
-                        await signIn(widget._email.text,widget._password.text);
+                            categories: selectedCauses,
+                            userId: res.user!.uid,
+                            name: widget._name.text,
+                          );
+                        }
+                        await signIn(widget._email.text, widget._password.text);
+                        SharedPreferences.getInstance().then((value) => value.setBool("ngo",false));
                         Navigator.of(context).pushReplacementNamed(DashBoard.route);
                       },
                     ),

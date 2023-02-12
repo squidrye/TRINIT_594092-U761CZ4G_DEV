@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:we_care/presentation/widget/CommonWidgets.dart';
 import 'package:we_care/service/db.dart';
 import 'package:we_care/service/firebase_service.dart';
@@ -102,6 +103,7 @@ class _NGORegisterScreenState extends State<NGORegisterScreen> {
                           impact: widget._vision.text
                         );
                         await signIn(widget._email.text,widget._password.text);
+                        SharedPreferences.getInstance().then((value) => value.setBool("ngo",true));
                         Navigator.of(context).pushReplacementNamed(DashBoard.route);
                       },
                     ),

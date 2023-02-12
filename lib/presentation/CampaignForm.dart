@@ -32,7 +32,6 @@ class _CampaignFormState extends State<CampaignForm> {
     "Flood-Relief",
     "Empowerment",
     "Action Chip",
-    "Action Chip"
   ];
   List<String> selectedCauses = [];
   int _currentStep = 0;

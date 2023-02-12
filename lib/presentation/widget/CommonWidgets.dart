@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../model/Campaign.dart';
+import '../details.dart';
+
 class XTitle extends StatelessWidget {
   String value;
   XTitle({required this.value, Key? key}) : super(key: key);
@@ -43,7 +46,7 @@ class XSubTitle extends Text {
 class XField extends StatelessWidget {
   String value;
   TextEditingController controller;
-  XField({required this.value, Key? key,required this.controller}) : super(key: key);
+  XField({required this.value, Key? key, required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +69,7 @@ class XField extends StatelessWidget {
 class XTextArea extends StatelessWidget {
   String value;
   TextEditingController controller;
-  XTextArea({required this.value, Key? key,required this.controller}) : super(key: key);
+  XTextArea({required this.value, Key? key, required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -113,10 +116,8 @@ class XButton extends StatelessWidget {
               Radius.circular(12),
             ),
           ),
-          foregroundColor:
-              alter ? Theme.of(context).primaryColor : Colors.white,
-          backgroundColor:
-              alter ? Colors.white : Theme.of(context).primaryColor,
+          foregroundColor: alter ? Theme.of(context).primaryColor : Colors.white,
+          backgroundColor: alter ? Colors.white : Theme.of(context).primaryColor,
         ),
         child: Text(text),
         onPressed: onPressed,
@@ -127,127 +128,133 @@ class XButton extends StatelessWidget {
 
 // ignore: must_be_immutable
 class ShortDetails extends StatelessWidget {
-  String value;
+  Campaign campaign;
   int raised;
-  ShortDetails({required this.value, required this.raised, Key? key})
-      : super(key: key);
+  String id;
+  ShortDetails({required this.raised, Key? key, required this.campaign, required this.id}) : super(key: key);
 
   //  Details({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 50.0, right: 50),
+      padding: const EdgeInsets.all(12.0),
       child: Container(
-        height: 230,
-        width: MediaQuery.of(context).size.width * 0.8,
-        decoration: BoxDecoration(
-            color: Colors.grey, borderRadius: BorderRadius.circular(10)),
-        child: Stack(alignment: Alignment.bottomCenter, children: [
-          Container(
-            height: 230,
-            width: MediaQuery.of(context).size.width * 0.8,
-            decoration: const BoxDecoration(
-                image: DecorationImage(image: AssetImage('value'))),
-          ),
-          Container(
-            height: 230 / 1.7,
-            decoration: BoxDecoration(
-                color: Color.fromARGB(255, 24, 68, 143),
-                borderRadius: BorderRadius.circular(10)),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: Column(
-                children: [
-                  XSubTitle(value: 'Title'),
-                  const Text('Details'),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 0, right: 5, bottom: 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+        width: 200,
+        child: Card(
+          child: Column(
+            children: [
+              Container(
+                width: double.infinity,
+                child: Image.network(
+                    fit: BoxFit.fitWidth,
+                    height: 140,
+                    "https://images.unsplash.com/photo-1652188515604-1c3fc34c5ac4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=726&q=80"),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                child: XSubTitle(value: campaign.title),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                child: Text(campaign.description),
+              ),
+              Card(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: const [
+                          Text(
+                            "Raised",
+                            style: TextStyle(fontSize: 22, color: Colors.green),
+                          ),
+                          Text("10 % "),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Text("No of subscribers 200")
+                        ],
+                      ),
+                    ),
+                    Row(
                       children: [
-                        const Text("Raised" ,style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
-                        const SizedBox(width: 10,),
-                        Text("80 %", style: TextStyle(fontSize: 19, color: Colors.green,fontWeight: FontWeight.bold),),
-
-                         const SizedBox(width: 30,),
-
-                        XButton(
-                            onPressed: () {},
-                            alter: true,
-                            width: 120,
-                            height: 30,
-                            text: 'View Details')
+                        XButton(onPressed: () {}, alter: true, width: 100, height: 20, text: campaign.category),
+                        Text("${campaign.targetAmount} Rs"),
                       ],
                     ),
-                  )
-                ],
+                  ],
+                ),
               ),
-            ),
-            // color: Colors.blueAccent,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: XButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(Details.route, arguments: {'id': id});
+                      },
+                      alter: false,
+                      width: 120,
+                      height: 50,
+                      text: 'View Details'),
+                ),
+              ),
+            ],
           ),
-        ]),
+        ),
       ),
     );
   }
 }
 
 class XDetails extends StatelessWidget {
-  String title= "Title";
+  String title = "Title";
+  String description = "Title";
 
-  XDetails({required this.title, Key? key})
-      : super(key: key);
+  XDetails({required this.description, required this.title, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 400,
-      width: (MediaQuery.of(context).size.width),
-      // color: Colors.green,
-      decoration: const BoxDecoration(
-        color: Colors.white
-
-      ),
-      child: Card(
-        elevation: 7,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Container(
+    return Card(
+      elevation: 7,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Container(
+            width: double.infinity,
+            child: Image.network(
+                fit: BoxFit.fitWidth,
+                height: 180,
+                "https://images.unsplash.com/photo-1652188515604-1c3fc34c5ac4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=726&q=80"),
+          ),
+          Container(
               decoration: const BoxDecoration(color: Colors.white),
-              height: 200,
               width: (MediaQuery.of(context).size.width),
-              child:  Padding(
+              child: Padding(
                 padding: const EdgeInsets.only(left: 20),
                 child: Column(
                   children: [
                     XSubTitle(value: title),
-                     const Text('Details'),
-      
-                   
-                        ],
-                      ),
-                    )
-        )],
-          ),
-      ));
-        
+                    Text(description),
+                  ],
+                ),
+              ))
+        ],
+      ),
+    );
   }
 }
 
 class Investor extends StatelessWidget {
-  String title= "Title";
+  String title = "Title";
 
-  Investor({required this.title, Key? key})
-      : super(key: key);
+  Investor({required this.title, Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return  Card(
-      
+    return Card(
       elevation: 10,
       color: Colors.white,
       child: Container(
@@ -256,34 +263,46 @@ class Investor extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 10,top: 10),
+              padding: const EdgeInsets.only(left: 10, top: 10),
               child: Row(
                 children: const [
                   CircleAvatar(
                     backgroundColor: Colors.grey,
                   ),
-                  SizedBox(width: 10,),
+                  SizedBox(
+                    width: 10,
+                  ),
                   Text("Steve Rogers"),
-                  SizedBox(width: 50,),
-                  Text("10000 Rs" ,style: TextStyle(fontSize: 17),)
-
+                  SizedBox(
+                    width: 50,
+                  ),
+                  Text(
+                    "10000 Rs",
+                    style: TextStyle(fontSize: 17),
+                  )
                 ],
               ),
             ),
-            const SizedBox(height: 9,),
-
+            const SizedBox(
+              height: 9,
+            ),
             Padding(
-              padding:  const EdgeInsets.only(left:8.0),
-              child: Row(children:  [
-                const CircleAvatar(
-                  radius: 10,
-                  backgroundColor: Colors.white24,
-                ),
-                const SizedBox(width: 10,),
-                TextButton(child: const Text("Send a Message"),
-                onPressed: (){},
-                )
-              ],),
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Row(
+                children: [
+                  const CircleAvatar(
+                    radius: 10,
+                    backgroundColor: Colors.white24,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  TextButton(
+                    child: const Text("Send a Message"),
+                    onPressed: () {},
+                  )
+                ],
+              ),
             )
           ],
         ),
@@ -293,29 +312,32 @@ class Investor extends StatelessWidget {
 }
 
 class About extends StatelessWidget {
-  const About({Key? key}) : super(key: key);
+  final String cause;
+  const About({Key? key, required this.cause}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 170,
-      width: 315,
+      // height: 170,
+      width: (MediaQuery.of(context).size.width),
       color: Colors.white,
-      child:  Card(
+      child: Card(
         elevation: 5,
         child: Padding(
-          padding: const EdgeInsets.only(left: 20,top: 20),
+          padding: const EdgeInsets.only(left: 20, top: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text("About",style: TextStyle(fontSize: 25),),
-
-              SizedBox(height: 20,),
-
-              Text("Details")
+            children: [
+              Text(
+                "About",
+                style: TextStyle(fontSize: 25),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(cause)
             ],
           ),
-          
         ),
       ),
     );
@@ -323,33 +345,34 @@ class About extends StatelessWidget {
 }
 
 class Vision extends StatelessWidget {
-  const Vision({Key? key}) : super(key: key);
+  final String vision;
+  const Vision({required this.vision, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 170,
-      width: 400,
+      // height: 170,
+      width: (MediaQuery.of(context).size.width),
       color: Colors.white,
-      child:  Card(
-         
+      child: Card(
         elevation: 5,
         child: Padding(
-          padding: const EdgeInsets.only(left: 20,top: 20),
+          padding: const EdgeInsets.only(left: 20, top: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text("Vision",style: TextStyle(fontSize: 25),),
-
-              SizedBox(height: 20,),
-
-              Text("Details")
+            children: [
+              Text(
+                "Vision",
+                style: TextStyle(fontSize: 25),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(vision)
             ],
           ),
-          
         ),
       ),
     );
   }
 }
-
